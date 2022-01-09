@@ -13,6 +13,7 @@
 #include "../../utils/string_utils/string_utils.h"
 
 void countBits(int *ones, int *zeroes, char **lines, int numLines, int i);
+char *oxygenFilter(char **A, int i, int lengthOfA);
 
 int main(int argc, char **argv) {
 	char *filepath;
@@ -46,7 +47,8 @@ int main(int argc, char **argv) {
 	int epsilonRate = strtol(epsilon, NULL, 2);
 	printf("%d\n", gammaRate * epsilonRate);
 
-	
+	char *oxygen = oxygenFilter(lines, 0, numLines);
+	printf("%s\n", oxygen);
 
 	freeStrings(lines, numLines);
 
@@ -68,3 +70,31 @@ void countBits(int *ones, int *zeroes, char **lines, int numLines, int i) {
 	return;
 }
 
+char *oxygenFilter(char **A, int i, int lengthOfA) {
+	if(lengthOfA == 1) {
+		return A[0];
+	} else {
+		char **NA = (char **) malloc(sizeof(char *) * lengthOfA);
+		int lengthOfNA = 0;
+		int ones, zeroes;
+		countBits(&ones, &zeroes, A, lengthOfA, i);
+		if(ones > zeroes || ones == zeroes) {
+			for(int j=0; j<lengthOfA; j++) {
+				if(A[j][i] == '1') {
+					NA[j] = strdup(A[j]);
+					lengthOfNA++;
+				}
+			}
+		} else {
+			for( int j=0; j<lengthOfA; j++) {
+				if(A[j][i] == '1') {
+					NA[j] = strdup(A[j]);
+					lengthOfNA++;
+				}
+			}
+		}
+
+		freeStrings(A, lengthOfA);
+		return oxygenFilter(NA, i+1, lengthOfNA);
+	}
+}
