@@ -1,0 +1,14 @@
+# sample makefile for aoc
+
+CC = gcc
+FLAGS = -std=gnu99 -g
+INCLUDES = ../../utils/file_utils/file_utils.o \ 
+	   ../../utils/string_utils/string_utils.o
+LINK = -Wall -lm
+
+# replace dayX with appropriate day
+dayX.exe: dayX.c
+	$(CC) $(FLAGS) $(INCLUDES) dayX.c -o dayX.exe $(LINK)
+
+clean:
+	rm -Rf *.exe

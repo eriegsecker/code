@@ -1,4 +1,4 @@
-# sample makefile
+# makefile for day 1 aoc 2021
 
 CC = gcc
 FLAGS = -std=gnu99 -g
